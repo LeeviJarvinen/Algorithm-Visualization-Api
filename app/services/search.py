@@ -42,32 +42,51 @@ def binary_search(data: SearchRequest):
     target = data.target
     steps = []
     partition = []
-    result = []
+    result = ""
+    found = False
 
     low = 0
     high = len(arr) - 1
     while low <= high:
         mid = low + (high - low) // 2
         if target == arr[mid]:
+            found = True
             steps.append({
                 "step": len(steps) + 1,
-                "action": f"value is at index {mid}",
-                "found": True
+                "action": f"the target value: {target} it at the index of mid: {mid}",
+                "found": found
             })
             break 
+
         elif target < arr[mid]:
             high = mid - 1
-            partition = arr[low:mid]
+            p_low = low
+            p_high = high + 1
+            partition = arr[p_low:p_high]
+
+            steps.append({
+                "step": len(steps) + 1,
+                "action": f"{target} < {arr[mid]} split array",
+                "array": partition,
+                "found": found
+            })
+
         else:
             low = mid + 1
-            partition = arr[mid:high] 
+            p_low = low
+            p_high = high + 1
+            partition = arr[p_low:p_high] 
 
-        steps.append({
-            "step": len(steps) + 1,
-            "action": f"split array from index {mid}",
-            "array": partition,
-            "found": False
-        })
+            steps.append({
+                "step": len(steps) + 1,
+                "action": f"{target} > {arr[mid]} split array",
+                "array": partition,
+                "found": found 
+            })
+
+    if not found:
+        result = f"target value: {target} is not present in the give givenn array"
+
 
     return {
         "algorithm": "binary_search",
@@ -75,10 +94,3 @@ def binary_search(data: SearchRequest):
         "steps": steps,
         "result": result
         }
-    
-
-
-
-
-
-                
