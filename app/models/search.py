@@ -2,15 +2,10 @@ from pydantic import BaseModel
 
 class SearchRequest(BaseModel):
     data: list[int]
-    target: int
-
-class Step(BaseModel):
-    step: int
-    action: str
-    found: bool
+    target: int = None  
 
 class SearchResponse(BaseModel):
     algorithm: str
     input: list[int] 
-    steps: list[Step] = None
-    result: str
+    steps: list
+    result: str | list[int]

@@ -1,8 +1,8 @@
-from ..models.sort import NumRequest 
+from ..models.search import SearchRequest, SearchResponse 
 
-def bubble_sort(data: NumRequest):
-    data = data.num
-    initial_data = data.copy()
+def bubble_sort(data: SearchRequest):
+    data = data.data
+    request_data = data.copy()
     steps = []
     n = len(data)
 
@@ -13,7 +13,7 @@ def bubble_sort(data: NumRequest):
                 data[j], data[j+1] = data[j+1], data[j]
                 swapped = True
                 steps.append({
-                   "count": len(steps) + 1,
+                    "step": len(steps) + 1,
                     "action": f"swap {data[j]} and {data[j+1]}",
                     "array": data.copy(),
                     "compared_indices": [data[j], data[j+1]],
@@ -22,15 +22,16 @@ def bubble_sort(data: NumRequest):
         if not swapped:
             break
 
-    return {
-        "algorithm": "bubble_sort",
-        "input": initial_data,
-        "steps": steps,
-        "result": data
-    }
-
-def quick_sort(data: NumRequest):
-    data = data.num
+    return SearchResponse(
+        algorithm="bubble_sort",
+        input=request_data,
+        steps=steps,
+        result=data
+    )
+        
+def quick_sort(data: SearchRequest):
+    data = data.data
+    request_data = data.copy()
     steps = []
     step_counter = 0
     
@@ -46,13 +47,13 @@ def quick_sort(data: NumRequest):
             
             stack.append((pivot_pos + 1, high)) 
             stack.append((low, pivot_pos - 1)) 
-    
-    return {
-        "algorithm": "quick_sort",
-        "input": data,
-        "steps": steps,
-        "final_result": result_array
-    }
+
+    return SearchResponse(
+        algorithm="quick_sort",
+        input=request_data,
+        steps=steps,
+        result=data
+    )
 
 def partition(arr, low, high, steps, step_counter):
     pivot = arr[high]

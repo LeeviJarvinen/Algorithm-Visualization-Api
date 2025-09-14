@@ -1,4 +1,4 @@
-from ..models.search import SearchRequest, SearchResponse, Step
+from ..models.search import SearchRequest, SearchResponse
 
 def linear_search(data: SearchRequest):
     arr = data.data
@@ -7,7 +7,6 @@ def linear_search(data: SearchRequest):
     result = ""
 
     for i in range(len(arr)):
-       
         if arr[i] == target:
             steps.append({
                 "step": len(steps) + 1,
@@ -91,10 +90,10 @@ def binary_search(data: SearchRequest):
     if not found:
         result = f"target value: {target} is not present in the give givenn array"
 
-
-    return {
-        "algorithm": "binary_search",
-        "input": data.data,
-        "steps": steps,
-        "result": result
-        }
+    return SearchResponse(
+        algorithm="binary_search",
+        input=arr.copy(),
+        steps=steps,
+        result=result
+    )
+ 
