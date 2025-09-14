@@ -1,6 +1,6 @@
-from ..models.search import SearchRequest, SearchResponse 
+from ..models.search import Request, Response 
 
-def bubble_sort(data: SearchRequest):
+def bubble_sort(data: Request):
     data = data.data
     request_data = data.copy()
     steps = []
@@ -22,14 +22,14 @@ def bubble_sort(data: SearchRequest):
         if not swapped:
             break
 
-    return SearchResponse(
+    return Response(
         algorithm="bubble_sort",
         input=request_data,
         steps=steps,
         result=data
     )
         
-def quick_sort(data: SearchRequest):
+def quick_sort(data: Request):
     data = data.data
     request_data = data.copy()
     steps = []
@@ -48,7 +48,7 @@ def quick_sort(data: SearchRequest):
             stack.append((pivot_pos + 1, high)) 
             stack.append((low, pivot_pos - 1)) 
 
-    return SearchResponse(
+    return Response(
         algorithm="quick_sort",
         input=request_data,
         steps=steps,

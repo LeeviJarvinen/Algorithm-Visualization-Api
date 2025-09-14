@@ -1,10 +1,10 @@
 from pydantic import BaseModel
 
-class SearchRequest(BaseModel):
+class Request(BaseModel):
     data: list[int]
-    target: int = None  
+    target: int = None
 
-class SearchResponse(BaseModel):
+class Response(BaseModel):
     algorithm: str
     input: list[int] 
     steps: list
